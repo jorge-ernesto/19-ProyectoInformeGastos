@@ -14,35 +14,44 @@ define(['./lib/Bio.Library.Helper', 'N'],
 
         const { log, file, render, encode, record } = N;
 
+        /**
+         * Plantillas PDF/HTML avanzadas
+         *
+         * 31: STDTMPLEXPREPT - Standard Expense Report PDF/HTML Template
+         * 129: CUSTTMPL_BIO_INFORME_GASTOS_AGRUPADO - Standard Expense Report PDF/HTML Template - Agrupado
+         */
+
         /******************/
 
         // Crear PDF
-        function createPDF(button, expense_id) {
+        function createAdvancedPDF(button, expense_id) {
 
-            if (button == 'advanced_pdf') {
+            // render.TemplateRenderer
+            // https://6462530.app.netsuite.com/app/help/helpcenter.nl?fid=section_4412065265.html
 
-                // render.TemplateRenderer
-                // https://6462530.app.netsuite.com/app/help/helpcenter.nl?fid=section_4412065265.html
+            // TemplateRenderer.setTemplateById(options)
+            // https://6462530.app.netsuite.com/app/help/helpcenter.nl?fid=section_4528552999.html
 
-                // Template del archivo
-                let templatePdf = 'CUSTTMPL_BIO_INFORME_GASTOS_AGRUPADO';
+            // TemplateRenderer.addRecord(options)
+            // https://6462530.app.netsuite.com/app/help/helpcenter.nl?fid=section_456543212890.html
 
-                // Crear PDF - Contenido dinamico
-                let pdfContent = file.load(`./template/Advanced_PDF/${templatePdf}.ftl`).getContents();
-                let rendererPDF = render.create();
-                rendererPDF.templateContent = pdfContent
+            // Template del archivo
+            let templatePdf = 129;
 
-                // Enviar datos a PDF
-                rendererPDF.addRecord('record', record.load({
-                    type: 'expensereport',
-                    id: expense_id
-                }));
+            // Crear PDF - Contenido dinamico
+            let rendererPDF = render.create();
+            rendererPDF.setTemplateById(templatePdf);
 
-                // Crear PDF
-                pdfFile = rendererPDF.renderAsString().replace(/&/g, '&amp;');
+            // Enviar datos a PDF
+            rendererPDF.addRecord('record', record.load({
+                type: 'expensereport',
+                id: expense_id
+            }));
 
-                return { pdfFile };
-            }
+            // Crear PDF
+            pdfFile = rendererPDF.renderAsString().replace(/&/g, '&amp;');
+
+            return { pdfFile };
         }
 
         /******************/
@@ -66,7 +75,7 @@ define(['./lib/Bio.Library.Helper', 'N'],
                 if (button == 'advanced_pdf') {
 
                     // Crear PDF
-                    let { pdfFile } = createPDF(button, expense_id);
+                    let { pdfFile } = createAdvancedPDF(button, expense_id);
 
                     // Descargar PDF
                     scriptContext.response.renderPdf(pdfFile);
