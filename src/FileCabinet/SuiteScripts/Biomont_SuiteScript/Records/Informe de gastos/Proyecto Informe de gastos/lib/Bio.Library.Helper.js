@@ -6,7 +6,7 @@ define(['N'],
 
     function (N) {
 
-        const { log, runtime } = N;
+        const { log, runtime, record } = N;
 
         function getUser() {
             let user = runtime.getCurrentUser();
@@ -21,10 +21,28 @@ define(['N'],
             throw new Error(`${message}`);
         }
 
+        /****************** Validacion ******************/
+
+        function getCountrySubsidiary(subsidiaryId) {
+            // Cargar el registro de la subsidiaria
+            var subsidiaryRecord = record.load({
+                type: record.Type.SUBSIDIARY,
+                id: subsidiaryId
+            });
+
+            // Obtener el pais del registro de la subsidiaria
+            var countrySubsidiary = subsidiaryRecord.getValue('country');
+
+            return countrySubsidiary;
+        }
+
+
         return {
             getUser,
             error_log,
-            error_message
+            error_message,
+            // Informe de gastos - Validacion
+            getCountrySubsidiary
         }
 
     });

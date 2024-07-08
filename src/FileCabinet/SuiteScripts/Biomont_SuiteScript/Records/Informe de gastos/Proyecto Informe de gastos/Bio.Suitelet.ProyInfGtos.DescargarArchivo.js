@@ -1,6 +1,6 @@
 // Notas del archivo:
 // - Secuencia de comando:
-//      - Biomont SL Proy Inf Gtos Des Arc (customscript_bio_sl_proy_inf_gtos_des_arc)
+//      - Biomont SL Proy Inf Gtos Des Arc (customscript_bio_sl_proy_inf_gtos_des_ar)
 // - URL:
 //      - https://6462530.app.netsuite.com/app/site/hosting/scriptlet.nl?script=2169&deploy=1
 
@@ -17,14 +17,15 @@ define(['./lib/Bio.Library.Helper', 'N'],
         /**
          * Plantillas PDF/HTML avanzadas
          *
-         * 31: STDTMPLEXPREPT - Standard Expense Report PDF/HTML Template
-         * 129: CUSTTMPL_BIO_INFORME_GASTOS_AGRUPADO - Standard Expense Report PDF/HTML Template - Agrupado
+         * 31 (STDTMPLEXPREPT)                       : Standard Expense Report PDF/HTML Template
+         * 129 (CUSTTMPL_BIO_INFORME_GASTOS_AGRUPADO): Standard Expense Report PDF/HTML Template - Cuentas Agrupadas
+         * 130 (CUSTTMPLPLANILLA_MOVILIDAD)          : Standard Expense Report PDF/HTML Template 2
          */
 
         /******************/
 
         // Crear PDF
-        function createAdvancedPDF(button, expense_id) {
+        function createAdvancedPDF(button, expensereport_id, templatepdf_id) {
 
             // render.TemplateRenderer
             // https://6462530.app.netsuite.com/app/help/helpcenter.nl?fid=section_4412065265.html
@@ -36,16 +37,16 @@ define(['./lib/Bio.Library.Helper', 'N'],
             // https://6462530.app.netsuite.com/app/help/helpcenter.nl?fid=section_456543212890.html
 
             // Template del archivo
-            let templatePdf = 129;
+            let templatePdfId = templatepdf_id;
 
             // Crear PDF - Contenido dinamico
             let rendererPDF = render.create();
-            rendererPDF.setTemplateById(templatePdf);
+            rendererPDF.setTemplateById(templatePdfId);
 
             // Enviar datos a PDF
             rendererPDF.addRecord('record', record.load({
                 type: 'expensereport',
-                id: expense_id
+                id: expensereport_id
             }));
 
             // Crear PDF
@@ -69,13 +70,14 @@ define(['./lib/Bio.Library.Helper', 'N'],
 
             if (scriptContext.request.method == 'GET') {
                 // Obtener datos por url
-                let button = scriptContext.request.parameters['_button'] || 'advanced_pdf';
-                let expense_id = scriptContext.request.parameters['_expense_id'] || 1152231;
+                let button = scriptContext.request.parameters['_button'];
+                let expensereport_id = scriptContext.request.parameters['_expensereport_id'];
+                let templatepdf_id = scriptContext.request.parameters['_templatepdf_id'] || 31;
 
                 if (button == 'advanced_pdf') {
 
                     // Crear PDF
-                    let { pdfFile } = createAdvancedPDF(button, expense_id);
+                    let { pdfFile } = createAdvancedPDF(button, expensereport_id, templatepdf_id);
 
                     // Descargar PDF
                     scriptContext.response.renderPdf(pdfFile);
