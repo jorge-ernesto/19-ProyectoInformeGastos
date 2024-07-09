@@ -3,7 +3,11 @@
         <path>~/AccountConfiguration/*</path>
     </configuration>
     <files>
-        <path>~/FileCabinet/*</path>
+        <!-- POR DEFECTO -->
+        <!-- <path>~/FileCabinet/*</path> -->
+
+        <!-- PERSONALIZADO -->
+        <path>~/FileCabinet/SuiteScripts/Biomont_SuiteScript/Records/Informe de gastos/*</path>
     </files>
     <objects>
         <path>~/Objects/*</path>

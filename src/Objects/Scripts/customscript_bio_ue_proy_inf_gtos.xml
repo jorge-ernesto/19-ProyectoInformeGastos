@@ -1,0 +1,27 @@
+<usereventscript scriptid="customscript_bio_ue_proy_inf_gtos">
+  <description></description>
+  <isinactive>F</isinactive>
+  <name>Biomont UE Proy Inf Gtos</name>
+  <notifyadmins>F</notifyadmins>
+  <notifyemails></notifyemails>
+  <notifyowner>T</notifyowner>
+  <notifyuser>F</notifyuser>
+  <scriptfile>[/SuiteScripts/Biomont_SuiteScript/Records/Informe de gastos/Proyecto Informe de gastos/Bio.UserEvent.ProyInfGtos.js]</scriptfile>
+  <scriptdeployments>
+    <scriptdeployment scriptid="customdeploy_bio_ue_proy_inf_gtos">
+      <allemployees>F</allemployees>
+      <alllocalizationcontexts>F</alllocalizationcontexts>
+      <allpartners>F</allpartners>
+      <allroles>T</allroles>
+      <audslctrole></audslctrole>
+      <eventtype></eventtype>
+      <executioncontext>ACTION|ADVANCEDREVREC|BANKCONNECTIVITY|BANKSTATEMENTPARSER|BUNDLEINSTALLATION|CLIENT|CONSOLRATEADJUSTOR|CSVIMPORT|CUSTOMGLLINES|CUSTOMMASSUPDATE|DATASETBUILDER|DEBUGGER|EMAILCAPTURE|FICONNECTIVITY|FIPARSER|MAPREDUCE|OCRPLUGIN|OTHER|PAYMENTGATEWAY|PAYMENTPOSTBACK|PLATFORMEXTENSION|PORTLET|PROMOTIONS|RECORDACTION|RESTLET|RESTWEBSERVICES|SCHEDULED|SDFINSTALLATION|SHIPPINGPARTNERS|SUITELET|TAXCALCULATION|USEREVENT|USERINTERFACE|WEBSERVICES|WORKBOOKBUILDER|WORKFLOW</executioncontext>
+      <isdeployed>T</isdeployed>
+      <localizationcontext>PE</localizationcontext>
+      <loglevel>DEBUG</loglevel>
+      <recordtype>EXPENSEREPORT</recordtype>
+      <runasrole>ADMINISTRATOR</runasrole>
+      <status>RELEASED</status>
+    </scriptdeployment>
+  </scriptdeployments>
+</usereventscript>
